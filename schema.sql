@@ -18,14 +18,7 @@ CREATE TABLE appointment (
     provider_id INTEGER NOT NULL,
     client_id INTEGER,
     is_confirmed bool default false,
+    confirmation_deadline TIMESTAMPTZ,
     FOREIGN KEY (provider_id) REFERENCES user(id),
     FOREIGN KEY (client_id) REFERENCES user(id)
 );
-
---CREATE TABLE clientproviderrelationship (
---    client_id INTEGER NOT NULL,
---    provider_id INTEGER NOT NULL, 
---    PRIMARY KEY (client_id, provider_id),
---    FOREIGN KEY (client_id) REFERENCES user(id),
---    FOREIGN KEY (provider_id) REFERENCES user(id)
---);

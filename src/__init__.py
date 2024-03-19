@@ -30,7 +30,7 @@ def create_app(test_config=None):
         pass 
 
 
-    from . import appointments, users
+    from routes import appointments, users
     app.register_blueprint(appointments.bp)
     app.register_blueprint(users.bp)
 
@@ -41,7 +41,7 @@ def create_app(test_config=None):
     def json_404(e):
         return jsonify(error="Resource not found."), 404 # TODO: improve 404 error message
     
-    from src.remove_expired import init_scheduler
+    from src.etc.remove_expired import init_scheduler
     init_scheduler(app)
 
     return app

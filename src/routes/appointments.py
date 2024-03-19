@@ -1,16 +1,13 @@
 from datetime import datetime, timedelta
 
-from flask import (
-    Blueprint, flash, g, jsonify, redirect, render_template, request, session, url_for
-)
-from marshmallow import ValidationError
-from werkzeug.security import check_password_hash, generate_password_hash
+from flask import (Blueprint, g, jsonify, request)
+from werkzeug.security import check_password_hash
 
 from . import db
 
-from src.models import User, Appointment
-from src.schemas import UserSchema, AppointmentSchema, CreateAppointmentsSchema, BookAppointmentSchema
-from src.helpers import validate_schema
+from src.data.models import User, Appointment
+from src.data.schemas import  AppointmentSchema, CreateAppointmentsSchema, BookAppointmentSchema
+from src.etc.helpers import validate_schema
 
 
 bp = Blueprint('appointments', __name__, url_prefix='/appointments')

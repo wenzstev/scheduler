@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask_apscheduler import APScheduler
 
-from src.models import Appointment
+from src.data.models import Appointment
 from . import db
 
 def check_unconfirmed_appointments(app):

@@ -1,5 +1,5 @@
 from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field 
-from src.models import User, Appointment 
+from src.data.models import User, Appointment 
 from marshmallow import Schema, ValidationError, fields, validate, pre_load, pre_dump
 from werkzeug.security import generate_password_hash
 from datetime import datetime

@@ -1,15 +1,15 @@
 from flask import (
-    Blueprint, g, jsonify, request
+    Blueprint, jsonify, request
 )
 from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
 
 from . import db 
 
-from src.models import User
-from src.schemas import UserSchema
+from src.data.models import User
+from src.data.schemas import UserSchema
 
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import generate_password_hash
 
 
 bp = Blueprint('users', __name__, url_prefix='/users')
