@@ -14,7 +14,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 bp = Blueprint('users', __name__, url_prefix='/users')
 
-@bp.route('/<int:user_id>', methods=(['GET', 'PUT', 'DELETE']))
+@bp.route('/<int:user_id>', methods=(['GET']))
 def users(user_id):
     user = User.query.get(user_id)
     if user is None:
@@ -25,27 +25,25 @@ def users(user_id):
 
 @bp.route('/', methods=['POST'])
 def create_user():
+    password = request.json.get('password')
+    user_data = request.json.copy()
+    user_data.pop('password', None)
     
-    user_data = request.json 
-
-    if 'password' in user_data:
-        hashed_password = generate_password_hash(user_data['password'])
-        user_data['password'] = hashed_password
-
-    user_schema = UserSchema(session=db.session)
     try: 
+        user_schema = UserSchema(session=db.session)
         user = user_schema.load(user_data)
-    except ValidationError as err:
-        return jsonify(err.messages), 400
-    
-    try:
+        user.password = generate_password_hash(password)
+
         db.session.add(user)
         db.session.commit()
+        
+        response_data = user_schema.dump(user)
+        return jsonify(response_data), 201
+
+    except ValidationError as err:
+        return jsonify(err.messages), 400
     except IntegrityError as err:
         return jsonify(err.detail), 400 #FIXME bad error
 
-    response_data = user_schema.dump(user)
-    response_data.pop('password', None)
-    
-    return jsonify(response_data), 201
+
 

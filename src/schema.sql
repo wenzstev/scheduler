@@ -7,7 +7,7 @@ CREATE TABLE users (
     firstname VARCHAR (50) NOT NULL,
     lastname VARCHAR(50) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
-    isProvider bool default FALSE,
+    is_provider bool default FALSE,
     password VARCHAR(250) NOT NULL
 );
 
@@ -17,7 +17,7 @@ CREATE TABLE appointment (
     endtime TIMESTAMPTZ,
     provider_id INTEGER NOT NULL,
     client_id INTEGER,
-    isConfirmed bool default false,
+    is_confirmed bool default false,
     FOREIGN KEY (provider_id) REFERENCES user(id),
     FOREIGN KEY (client_id) REFERENCES user(id)
 );

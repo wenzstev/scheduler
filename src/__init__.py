@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 
@@ -36,5 +36,12 @@ def create_app(test_config=None):
 
     with app.app_context():
         db.create_all()
+
+    @app.errorhandler(404)
+    def json_404(e):
+        return jsonify(error="Resource not found."), 404 # TODO: improve 404 error message
+    
+    from src.remove_expired import init_scheduler
+    init_scheduler(app)
 
     return app

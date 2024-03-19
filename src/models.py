@@ -14,7 +14,7 @@ class User(db.Model):
     firstname = sa.Column(sa.String, nullable=False)
     lastname = sa.Column(sa.String, nullable=False)
     email = sa.Column(sa.String, nullable=False, unique=True)
-    isProvider = sa.Column(sa.Boolean, default=False, nullable=False)
+    is_provider = sa.Column(sa.Boolean, default=False, nullable=False)
     password = sa.Column(sa.String, nullable=False)
 
 class Appointment(db.Model):
@@ -23,4 +23,5 @@ class Appointment(db.Model):
     starttime = sa.Column(sa.TIMESTAMP)
     provider_id = sa.Column(sa.Integer, sa.ForeignKey("users.id"), nullable=False)
     client_id = sa.Column(sa.Integer, sa.ForeignKey("users.id"))
-    isConfirmed = sa.Column(sa.Boolean, default=False, nullable=False)
+    is_confirmed = sa.Column(sa.Boolean, default=False, nullable=False)
+    confirmation_deadline = sa.Column(sa.TIMESTAMP)
