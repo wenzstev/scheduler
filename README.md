@@ -28,3 +28,4 @@ App that allows for providers to schedule appointment slots, and clients to book
 - removal of sqlite database to ensure statelessness and scalability 
 - refactoring of endpoints to use common helper functions and expressions 
 - extensive unit testing to ensure proper functinality 
+- better security and password handling
